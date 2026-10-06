@@ -679,7 +679,16 @@ async def main():
     await check_sessions()
     
     print("[*] spinning up public bot interface...")
-    await bot_client.start(bot_token=bot_token)
+    while True:
+        try:
+            await bot_client.start(bot_token=bot_token)
+            break
+        except errors.FloodWaitError as e:
+            print(f"[-] Telegram FloodWait on bot token! Sleeping for {e.seconds + 5} seconds before retrying...")
+            await asyncio.sleep(e.seconds + 5)
+        except Exception as e:
+            print(f"[-] Unknown error starting bot: {e}")
+            raise
     
     try:
         await bot_client(SetBotCommandsRequest(
