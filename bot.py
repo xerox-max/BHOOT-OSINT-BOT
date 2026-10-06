@@ -316,9 +316,19 @@ async def handle_user_request(event):
         return
 
     if sender.id in admin_ids:
-        user_credits[sender.id] = 999999
+        position = request_queue.qsize() + 1
+        msg = await event.reply(f"⏳ **Added to queue** — Position #{position}. Please wait...")
+        await request_queue.put({
+            'sender_id': sender.id,
+            'first_name': getattr(sender, 'first_name', '') or '',
+            'username': getattr(sender, 'username', '') or '',
+            'state': state,
+            'query': query,
+            'reply_msg': msg
+        })
+        return
 
-    # Check user credits
+    # Check user credits for regular users
     credits = user_credits.get(sender.id, 0)
     if credits > 0:
         user_credits[sender.id] = credits - 1
@@ -352,7 +362,7 @@ async def handle_user_request(event):
         encoded_url = urllib.parse.quote(long_url)
         res = requests.get(f"https://arolinks.com/api?api={api_key}&url={encoded_url}", timeout=10).json()
         short_url = res.get("shortenedUrl", long_url)
-    await admin_log(f"🔗 **Link Generated**\nUser ID: `{sender.id}`\nAction: Sent to Arolinks for Query: `{query}`")
+        await admin_log(f"🔗 **Link Generated**\nUser ID: `{sender.id}`\nAction: Sent to Arolinks for Query: `{query}`")
     except Exception as e:
         print("Arolinks error:", e)
         short_url = long_url
