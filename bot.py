@@ -525,9 +525,9 @@ async def backend_worker():
                             return "\u274c **DATA NOT FOUND**\n\n\U0001f4a1 Try different username or old username"
                         return "\u274c **DATA NOT FOUND**"
 
-                    if "api offline" in raw_lower or "available nahi" in raw_lower:
+                    if "api offline" in raw_text.lower() or "available nahi" in raw_text.lower():
                         styled_result = "⚠️ **SERVER DOWN**\n\n❌ Currently this lookup is not available. Please try again later."
-                    elif "not found" in raw_lower or "nahi mila" in raw_lower:
+                    elif "not found" in raw_text.lower() or "nahi mila" in raw_text.lower():
                         styled_result = get_not_found_msg(state)
                     else:
                         all_records = []
