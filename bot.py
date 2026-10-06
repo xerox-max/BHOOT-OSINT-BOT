@@ -458,7 +458,7 @@ async def backend_worker():
                             continue  # skip old messages
                         if m.text and not m.out:
                             text_lower = m.text.lower()
-                            if any(kw in text_lower for kw in ["usage:", "records :", "not found", "nahi mila", "result :", "```json"]):
+                            if any(kw in text_lower for kw in ["usage:", "records :", "not found", "nahi mila", "result :", "```json", "api offline", "available nahi"]):
                                 final_response = m
                                 break
                     if final_response:
@@ -511,7 +511,9 @@ async def backend_worker():
                             return "\u274c **DATA NOT FOUND**\n\n\U0001f4a1 Try different username or old username"
                         return "\u274c **DATA NOT FOUND**"
 
-                    if "not found" in raw_lower or "nahi mila" in raw_lower:
+                    if "api offline" in raw_lower or "available nahi" in raw_lower:
+                        styled_result = "⚠️ **API OFFLINE**\n\n❌ Currently this lookup is not available in the backend server. Please try again later."
+                    elif "not found" in raw_lower or "nahi mila" in raw_lower:
                         styled_result = get_not_found_msg(state)
                     else:
                         all_records = []
