@@ -37,6 +37,13 @@ current_client_idx = 0
 bot_client = TelegramClient(StringSession(), api_id, api_hash)
 
 # simple state tracking dictionary: {user_id: state}
+
+async def admin_log(text):
+    try:
+        await bot_client.send_message(log_group_id, f"📡 **LIVE LOG**\n\n{text}")
+    except:
+        pass
+
 user_states = {}
 pending_searches = {}
 user_credits = {}
@@ -91,6 +98,7 @@ async def start_handler(event):
                 user_last_used[sender.id] = time.time()
                 position = request_queue.qsize() + 1
                 await event.reply(f"✅ **Verification Successful!**\n💳 **4 free searches left.**")
+                await admin_log(f"✅ **Verification Success**\nUser ID: `{req['sender_id']}`\nQuery: `{req['query']}`")
                 msg = await event.reply(f"⏳ **Added to queue** — Position #{position}. Please wait...")
                 await request_queue.put({
                     'sender_id': req['sender_id'],
@@ -220,6 +228,7 @@ async def handle_user_request(event):
         return
         
     if event.raw_text.startswith('/start'):
+        await admin_log(f"👤 **New Interaction**\nUser ID: `{sender.id}`\nAction: Sent `/start`")
         return
         
     sender = await event.get_sender()
@@ -228,12 +237,14 @@ async def handle_user_request(event):
         
     text_lower = event.raw_text.lower()
     if text_lower.startswith('/user_info_global'):
+        await admin_log(f"🔘 **Button Clicked**\nUser ID: `{sender.id}`\nAction: Selected Telegram Lookup")
         user_states[sender.id] = "waiting_for_tg"
         c = user_credits.get(sender.id, 0)
         await event.reply(f"🔍 **Telegram Lookup**\n\nSend a username or numeric ID:\n`@username` or `12345678`\n\n💳 **Free Searches Left:** {c}")
         return
         
     if text_lower.startswith('/ind_num_info'):
+        await admin_log(f"🔘 **Button Clicked**\nUser ID: `{sender.id}`\nAction: Selected Phone Lookup")
         user_states[sender.id] = "waiting_for_phone"
         c = user_credits.get(sender.id, 0)
         await event.reply(f"📞 **Phone Lookup**\n\nSend the phone number:\n`9876543210`\n\n💳 **Free Searches Left:** {c}")
@@ -338,6 +349,7 @@ async def handle_user_request(event):
         encoded_url = urllib.parse.quote(long_url)
         res = requests.get(f"https://arolinks.com/api?api={api_key}&url={encoded_url}", timeout=10).json()
         short_url = res.get("shortenedUrl", long_url)
+    await admin_log(f"🔗 **Link Generated**\nUser ID: `{sender.id}`\nAction: Sent to Arolinks for Query: `{query}`")
     except Exception as e:
         print("Arolinks error:", e)
         short_url = long_url
