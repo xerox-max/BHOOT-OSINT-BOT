@@ -29,7 +29,8 @@ fsub_channel = 'BHOOTOSINT'
 log_group_id = -1004414369159
 
 user_configs = [
-    {'session': StringSession('1BVtsOGQBu7NW3Ulg2OI6ugPHkuBBG_N-Xaqs2v1yPerjRzawFTNuww-9Rin7mU9stL3yZy1QMSNXZbfDeBhqBYB9jpsxHw8LVeS1mL0F-iBg-XrjwoGEMn4FD3gdDkplLnV42Hx8FZtW8to1tF8_FhjHCT03jwR79U21WHHyBp1yyNgjPzvl8bh9uGSGYwPNr53CtFLbYAxKtLG-b-MAU-xalNrl27Td-naZ54R8Bmj2RK7Ui941cspyeArsHUUJq_5pfDcA9Ks1iSVL_V3r97ha5zvM6EUIC0Gk8Vw9evSBOlVSFkMpmj0h4PPQBnmHm12rAcTOu2IcW-mcw1JslFC8awSpL_Q='), 'api_id': 31977645, 'api_hash': '9b9a69b381989dda981e1d11003890b6'}
+    {'session': StringSession('1BVtsOGQBu7NW3Ulg2OI6ugPHkuBBG_N-Xaqs2v1yPerjRzawFTNuww-9Rin7mU9stL3yZy1QMSNXZbfDeBhqBYB9jpsxHw8LVeS1mL0F-iBg-XrjwoGEMn4FD3gdDkplLnV42Hx8FZtW8to1tF8_FhjHCT03jwR79U21WHHyBp1yyNgjPzvl8bh9uGSGYwPNr53CtFLbYAxKtLG-b-MAU-xalNrl27Td-naZ54R8Bmj2RK7Ui941cspyeArsHUUJq_5pfDcA9Ks1iSVL_V3r97ha5zvM6EUIC0Gk8Vw9evSBOlVSFkMpmj0h4PPQBnmHm12rAcTOu2IcW-mcw1JslFC8awSpL_Q='), 'api_id': 31977645, 'api_hash': '9b9a69b381989dda981e1d11003890b6'},
+    {'session': StringSession('1BVtsOIsBu0y4kHhfwHkMgGiMyiDCX6bimxBg2p5VwvIhvbqEwolF0Ayqx5hlig4VLtVDkFqbNWx8ndtY4Mv34snkZJHxRXUfitfzgN-SqxeKhra1d-ujdwSt6XOrdtHvoR-GWko9x0jdOtV5m6Y-JKb_-msGkVrbWTKxWTh-P1-DI19WHPBGyZmmFbXS-69sLOAOhXpYgYMl8YU820HncZwlnxbZVMh7iyeSX6PZUjQ3J2B1mtlPI60WrMs4tp_1ZdgLU8h5DRwl6OgiPmeJvTObqiASBAfDawi8li76E3SWC_Pfxkem8B4ZtoWZ7CP9uErJeGscJvq7voxiL1CLGgGYDRnrcqA='), 'api_id': 33684533, 'api_hash': 'e4dd7b4fc685c5ac223526acc9c23ae0'}
 ]
 user_clients = [TelegramClient(c['session'], c['api_id'], c['api_hash']) for c in user_configs]
 client_cooldowns = {i: 0 for i in range(len(user_clients))}
