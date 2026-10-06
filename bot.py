@@ -315,6 +315,9 @@ async def handle_user_request(event):
         await event.reply(f"🚫 **Queue Full**\nServer is handling {request_queue.qsize()} requests. Try again in a minute.")
         return
 
+    if sender.id == admin_id:
+        user_credits[sender.id] = 999999
+
     # Check user credits
     credits = user_credits.get(sender.id, 0)
     if credits > 0:
