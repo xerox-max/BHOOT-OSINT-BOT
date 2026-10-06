@@ -23,7 +23,7 @@ api_id = 31977645
 api_hash = '9b9a69b381989dda981e1d11003890b6'
 bot_token = '8522533716:AAGpfrU1mMkL5OwbCgXh0vzofasAIGmIgbI'
 target_bot = '@AIIinfobot'
-fsub_channel = 'RABINDRAOSINT'
+fsub_channel = 'BHOOTOSINT'
 
 # Admin log group ID
 log_group_id = -1004414369159
@@ -125,7 +125,7 @@ async def start_handler(event):
         
     user_states.pop(sender.id, None)
     await event.reply(
-        "🕵️ **RABINDRA OSINT**\n"
+        "🕵️ **BHOOT OSINT**\n"
         "━━━━━━━━━━━━━━━━━━━━\n"
         "Choose a lookup type:",
         buttons=[
@@ -171,7 +171,7 @@ async def callback_handler(event):
         await event.answer("✅ Subscribed successfully!")
         try:
             await event.edit(
-                "🕵️ **RABINDRA OSINT**\n"
+                "🕵️ **BHOOT OSINT**\n"
                 "━━━━━━━━━━━━━━━━━━━━\n"
                 "Choose a lookup type:",
                 buttons=[
@@ -249,7 +249,7 @@ async def handle_user_request(event):
     try:
         await bot_client(GetParticipantRequest(channel=fsub_channel, participant=sender.id))
     except UserNotParticipantError:
-        await event.reply("❌ You must join @RABINDRAOSINT to use this bot. Send /start to get the link.")
+        await event.reply("❌ You must join @BHOOTOSINT to use this bot. Send /start to get the link.")
         return
     except Exception as e:
         print(f"[!] FSub exception during text handle: {e}")
