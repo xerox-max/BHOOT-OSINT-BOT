@@ -273,12 +273,12 @@ async def handle_user_request(event):
         await event.reply("[-] Please send /start and select an option first.")
         return
         
-    admin_id = 8631242440
+    admin_ids = [8631242440, 8942647955]
     current_time = time.time()
     last_used = user_last_used.get(sender.id, 0)
     cooldown_sec = 300
     
-    if sender.id != admin_id and current_time - last_used < cooldown_sec:
+    if sender.id not in admin_ids and current_time - last_used < cooldown_sec:
         time_left = int(cooldown_sec - (current_time - last_used))
         m, s = divmod(time_left, 60)
         bar_filled = int((cooldown_sec - time_left) / cooldown_sec * 10)
@@ -315,7 +315,7 @@ async def handle_user_request(event):
         await event.reply(f"🚫 **Queue Full**\nServer is handling {request_queue.qsize()} requests. Try again in a minute.")
         return
 
-    if sender.id == admin_id:
+    if sender.id in admin_ids:
         user_credits[sender.id] = 999999
 
     # Check user credits
