@@ -512,7 +512,7 @@ async def backend_worker():
                         return "\u274c **DATA NOT FOUND**"
 
                     if "api offline" in raw_lower or "available nahi" in raw_lower:
-                        styled_result = "⚠️ **API OFFLINE**\n\n❌ Currently this lookup is not available in the backend server. Please try again later."
+                        styled_result = "⚠️ **SERVER DOWN**\n\n❌ Currently this lookup is not available. Please try again later."
                     elif "not found" in raw_lower or "nahi mila" in raw_lower:
                         styled_result = get_not_found_msg(state)
                     else:
